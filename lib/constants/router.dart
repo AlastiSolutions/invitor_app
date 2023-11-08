@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invitor_app/main.dart';
+import 'package:invitor_app/screens/settings_screen.dart';
 
 import 'package:invitor_app/screens/splash_screen.dart';
 import 'package:invitor_app/screens/login_screen.dart';
@@ -38,7 +40,17 @@ Page<dynamic> buildAddEventPage(
 }
 
 final router = GoRouter(
+  debugLogDiagnostics: true,
   initialLocation: '/',
+  // redirectLimit: 1,
+  // redirect: (context, state) {
+  //   debugPrint('Redirecting');
+  //   if (supabase.auth.currentUser != null) {
+  //     return '/home';
+  //   } else {
+  //     return null;
+  //   }
+  // },
   routes: [
     GoRoute(
       path: '/',
@@ -59,16 +71,21 @@ final router = GoRouter(
       ],
     ),
     GoRoute(
-        path: '/home',
-        pageBuilder: (context, state) => buildPage(const HomeScreen()),
-        routes: [
-          GoRoute(
-            path: 'add_calendar',
-            pageBuilder: (context, state) => buildAddEventPage(
-              const AddCalendarScreen(),
-            ),
+      path: '/home',
+      pageBuilder: (context, state) => buildPage(const HomeScreen()),
+      routes: [
+        GoRoute(
+          path: 'add_calendar',
+          pageBuilder: (context, state) => buildAddEventPage(
+            const AddCalendarScreen(),
           ),
-        ]),
+        ),
+        GoRoute(
+          path: 'settings',
+          pageBuilder: (context, state) => buildPage(const SettingsScreen()),
+        ),
+      ],
+    ),
     GoRoute(
       path: '/calendar',
       pageBuilder: (context, state) => buildPage(const CalendarScreen()),
