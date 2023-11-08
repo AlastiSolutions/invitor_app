@@ -14,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final bool _isLoading = false;
+  bool _isLoading = false;
   bool _isRedirecting = false;
 
   late final StreamSubscription<AuthState> _authStateSubscription;
@@ -48,52 +48,52 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _login() async {
-    // try {
-    //   setState(() {
-    //     _isLoading = true;
-    //   });
+    try {
+      setState(() {
+        _isLoading = true;
+      });
 
-    //   await supabase.auth.signInWithPassword(
-    //     email: _emailController.text.trim(),
-    //     password: _passwordController.text.trim(),
-    //   );
+      await supabase.auth.signInWithPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
 
-    //   if (mounted) {
-    //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-    //       content: Text('Successfully logged in.'),
-    //     ));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Successfully logged in.'),
+        ));
 
-    //     _emailController.clear();
-    //     _passwordController.clear();
-    //   }
-    // } on AuthException catch (err) {
-    //   debugPrint('Auth Exception');
+        _emailController.clear();
+        _passwordController.clear();
+      }
+    } on AuthException catch (err) {
+      debugPrint('Auth Exception');
 
-    //   if (!context.mounted) return;
+      if (!context.mounted) return;
 
-    //   SnackBar(
-    //     content: Text(err.message),
-    //     backgroundColor: Theme.of(context).colorScheme.error,
-    //   );
-    // } catch (err) {
-    //   debugPrint('Unhandled Exception');
+      SnackBar(
+        content: Text(err.message),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      );
+    } catch (err) {
+      debugPrint('Unhandled Exception');
 
-    //   if (mounted) {
-    //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-    //       content: Text('Successfully logged in.'),
-    //     ));
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Successfully logged in.'),
+        ));
 
-    //     _emailController.clear();
-    //     _passwordController.clear();
-    //   }
-    // } finally {
-    //   if (mounted) {
-    //     setState(() {
-    //       _isLoading = true;
-    //     });
-    //   }
-    // }
-    context.go('/home');
+        _emailController.clear();
+        _passwordController.clear();
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = true;
+        });
+      }
+    }
+    // context.go('/home');
   }
 
   @override
@@ -140,6 +140,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: _passwordController,
                     hintText: 'Password',
                     keyboardType: TextInputType.text,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * .025),
+                  Row(
+                    children: [
+                      const Text('Don\'t have an account? '),
+                      SizedBox(width: MediaQuery.of(context).size.width * .025),
+                      TextButton(
+                        onPressed: () {
+                          context.go('/auth/register');
+                        },
+                        child: const Text('Register Now'),
+                      ),
+                    ],
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * .075),
                   _LoginButton(isLoading: _isLoading, login: _login),
