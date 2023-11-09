@@ -85,7 +85,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * .075),
+                  SizedBox(height: MediaQuery.of(context).size.height * .05),
                   _RegisterButton(isLoading: _isLoading, register: _register),
                 ],
               ),
