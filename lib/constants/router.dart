@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:invitor_app/main.dart';
+// import 'package:invitor_app/main.dart';
 import 'package:invitor_app/screens/settings_screen.dart';
 
 import 'package:invitor_app/screens/splash_screen.dart';
