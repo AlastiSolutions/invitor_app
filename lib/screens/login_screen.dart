@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:invitor_app/main.dart';
@@ -15,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
+  bool _isValidLoginInfo = false;
   bool _isRedirecting = false;
 
   late final StreamSubscription<AuthState> _authStateSubscription;
@@ -53,15 +55,42 @@ class _LoginScreenState extends State<LoginScreen> {
         _isLoading = true;
       });
 
-      await supabase.auth.signInWithPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+      if (!context.mounted) return;
 
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Successfully logged in.'),
-        ));
+      if (_emailController.text.trim() == "" ||
+          _passwordController.text.trim() == "") {
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(
+        //     content: const Text('Must use valid information'),
+        //     backgroundColor: Theme.of(context).colorScheme.error,
+        //     duration: const Duration(milliseconds: 2500),
+        //   ),
+        // );
+        Fluttertoast.showToast(
+          msg: 'Please enter your login information!',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Theme.of(context).colorScheme.error,
+          textColor: Theme.of(context).colorScheme.onError,
+          fontSize: 14,
+        );
+
+        return;
+      } else {
+        await supabase.auth.signInWithPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Successfully logged in.'),
+          ));
+        }
+
+        setState(() {
+          _isValidLoginInfo = true;
+        });
 
         _emailController.clear();
         _passwordController.clear();
@@ -87,7 +116,11 @@ class _LoginScreenState extends State<LoginScreen> {
         _passwordController.clear();
       }
     } finally {
-      if (mounted) {
+      if (!_isValidLoginInfo) {
+        setState(() {
+          _isLoading = false;
+        });
+      } else if (mounted) {
         setState(() {
           _isLoading = true;
         });
@@ -236,7 +269,7 @@ class _FormField extends StatelessWidget {
             borderSide: BorderSide(color: Colors.grey.shade700),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: Colors.black87),
           ),
         ),
