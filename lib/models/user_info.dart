@@ -8,11 +8,15 @@ DateTime _parseDateTimeFromString(String date) {
 
 class UserInfo {
   final String id;
+  final String firstName;
+  final String lastName;
   final DateTime createdAt;
   final String? username;
 
   const UserInfo({
     required this.id,
+    required this.firstName,
+    required this.lastName,
     required this.createdAt,
     this.username,
   });
@@ -20,6 +24,8 @@ class UserInfo {
   factory UserInfo.fromJson(Map<String, dynamic> json) {
     return UserInfo(
       id: json['id'],
+      firstName: json['first_name'],
+      lastName: json['last_name'],
       createdAt: _parseDateTimeFromString(json['created_at']),
       username: json['username'],
     );
