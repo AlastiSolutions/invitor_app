@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:invitor_app/main.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -10,6 +13,7 @@ class RegisterScreen extends StatefulWidget {
 
 class RegisterScreenState extends State<RegisterScreen> {
   final bool _isLoading = false;
+  bool _isValidUserRegistration = false;
   // bool _isRedirecting = false;
 
   late final TextEditingController _emailController = TextEditingController();
@@ -26,7 +30,68 @@ class RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-  Future<void> _register() async {}
+  Future<void> _register() async {
+    final emailAddress = _emailController.text.trim();
+    final username = _usernameController.text.trim();
+    final password = _passwordController.text.trim();
+
+    final AuthResponse res = await supabase.auth.signUp(
+      email: emailAddress,
+      password: password,
+    );
+
+    try {
+      if (res.user != null) {
+        await supabase.from('user_info').insert({
+          'id': res.user!.id,
+          'created_at': DateTime.now().toIso8601String(),
+          'username': username,
+          'updated_at': DateTime.now().toIso8601String(),
+        });
+      }
+
+      setState(() {
+        _isValidUserRegistration = true;
+      });
+    } on PostgrestException catch (err) {
+      if (!context.mounted) return;
+
+      Fluttertoast.showToast(
+        msg: err.message,
+        gravity: ToastGravity.BOTTOM,
+        toastLength: Toast.LENGTH_LONG,
+        timeInSecForIosWeb: 4,
+        backgroundColor: Theme.of(context).colorScheme.error,
+        textColor: Theme.of(context).colorScheme.onError,
+        fontSize: 14,
+      );
+
+      setState(() {
+        _isValidUserRegistration = false;
+      });
+    } catch (err) {
+      if (!context.mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Unexpected Error Occured'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
+      );
+
+      setState(() {
+        _isValidUserRegistration = false;
+      });
+    } finally {
+      if (_isValidUserRegistration) {
+        if (context.mounted) {
+          context.go('/auth/login');
+        }
+      }
+    }
+
+    // final User? newRegisteredUser = res.user;
+  }
 
   @override
   Widget build(BuildContext context) {
