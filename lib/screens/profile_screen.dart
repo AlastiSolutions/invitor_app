@@ -177,11 +177,11 @@ class __EventTileState extends State<_EventTile> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'Invites: 20',
+                'Invites: ${widget.event.inviteCount}',
                 style: GoogleFonts.lato(fontSize: 12),
               ),
               Text(
-                'RSVP: 12',
+                'RSVP: ${widget.event.rsvpCount}',
                 style: GoogleFonts.lato(fontSize: 12),
               ),
             ],
