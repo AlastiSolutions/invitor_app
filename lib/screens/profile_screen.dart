@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:invitor_app/main.dart';
 import 'package:invitor_app/models/event.dart';
@@ -6,7 +7,12 @@ import 'package:invitor_app/models/user_info.dart';
 import 'package:invitor_app/widgets/global/bottom_nav_bar.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  final String profileId;
+
+  const ProfileScreen({
+    super.key,
+    required this.profileId,
+  });
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -19,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late List<Event> currentUserEvents = [];
 
   Future<void> getUserInfo() async {
-    final userID = supabase.auth.currentUser!.id;
+    final userID = widget.profileId;
     final data = await supabase
         .from('user_info')
         .select()
@@ -158,35 +164,38 @@ class _EventTile extends StatefulWidget {
 class __EventTileState extends State<_EventTile> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: const BoxDecoration(
-        border: Border.symmetric(
-          horizontal: BorderSide(color: Colors.black12),
+    return GestureDetector(
+      onTap: () => context.go('/events/${widget.event.id}'),
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: const BoxDecoration(
+          border: Border.symmetric(
+            horizontal: BorderSide(color: Colors.black12),
+          ),
         ),
-      ),
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            widget.event.title,
-            style: GoogleFonts.abel(fontWeight: FontWeight.w700),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                'Invites: ${widget.event.inviteCount}',
-                style: GoogleFonts.lato(fontSize: 12),
-              ),
-              Text(
-                'RSVP: ${widget.event.rsvpCount}',
-                style: GoogleFonts.lato(fontSize: 12),
-              ),
-            ],
-          ),
-        ],
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              widget.event.title,
+              style: GoogleFonts.abel(fontWeight: FontWeight.w700),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  'Invites: ${widget.event.inviteCount}',
+                  style: GoogleFonts.lato(fontSize: 12),
+                ),
+                Text(
+                  'RSVP: ${widget.event.rsvpCount}',
+                  style: GoogleFonts.lato(fontSize: 12),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
