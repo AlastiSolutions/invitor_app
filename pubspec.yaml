@@ -41,6 +41,7 @@ dependencies:
   go_router: ^12.1.0
   another_flutter_splash_screen: ^1.2.0
   fluttertoast: ^8.2.3
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
