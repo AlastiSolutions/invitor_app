@@ -12,6 +12,8 @@ class Event {
     required this.location,
     required this.organizerId,
     this.organizerEmail,
+    required this.inviteCount,
+    required this.rsvpCount,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
@@ -24,6 +26,8 @@ class Event {
       location: json['location'],
       organizerId: json['organizer_id'],
       organizerEmail: json['organizer_email'],
+      inviteCount: json['invite_count'],
+      rsvpCount: json['rsvp_count'],
     );
   }
 
@@ -35,4 +39,6 @@ class Event {
   final String location;
   final String organizerId;
   final String? organizerEmail;
+  final int inviteCount;
+  final int rsvpCount;
 }
