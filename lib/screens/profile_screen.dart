@@ -4,7 +4,6 @@ import 'package:invitor_app/main.dart';
 import 'package:invitor_app/models/event.dart';
 import 'package:invitor_app/models/user_info.dart';
 import 'package:invitor_app/widgets/global/bottom_nav_bar.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
