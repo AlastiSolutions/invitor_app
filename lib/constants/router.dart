@@ -8,7 +8,7 @@ import 'package:invitor_app/screens/login_screen.dart';
 import 'package:invitor_app/screens/register_screen.dart';
 import 'package:invitor_app/screens/home_screen.dart';
 import 'package:invitor_app/screens/calendar_screen.dart';
-import 'package:invitor_app/screens/add_calendar_screen.dart';
+import 'package:invitor_app/screens/add_event_screen.dart';
 import 'package:invitor_app/screens/profile_screen.dart';
 
 Page<dynamic> buildPage(Widget page) {
@@ -77,7 +77,7 @@ final router = GoRouter(
         GoRoute(
           path: 'add_calendar',
           pageBuilder: (context, state) => buildAddEventPage(
-            const AddCalendarScreen(),
+            const AddEventScreen(),
           ),
         ),
         GoRoute(
