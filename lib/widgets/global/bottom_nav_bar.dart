@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:invitor_app/screens/home_screen.dart';
-import 'package:invitor_app/screens/profile_screen.dart';
+import 'package:invitor_app/main.dart';
 
 class BottomNavBar extends StatefulWidget {
   final int index;
@@ -14,18 +13,13 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class BottomNavBarState extends State<BottomNavBar> {
-  final screens = [
-    const HomeScreen(),
-    const ProfileScreen(),
-  ];
-
   void changeIndex(int index) {
     if (index == 0) {
       context.go('/home');
     } else if (index == 1) {
       context.go('/calendar');
     } else {
-      context.go('/profile');
+      context.go('/profile/${supabase.auth.currentUser!.id}');
     }
   }
 
