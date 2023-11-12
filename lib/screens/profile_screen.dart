@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> getUserEvents() async {
-    final userID = supabase.auth.currentUser!.id;
+    final userID = widget.profileId;
 
     final events = await supabase.from('events').select().eq(
           'organizer_id',
