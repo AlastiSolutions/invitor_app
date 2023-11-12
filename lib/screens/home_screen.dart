@@ -32,7 +32,17 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Container(
         height: deviceHeight,
         width: deviceWidth,
-        decoration: const BoxDecoration(color: Colors.blue),
+        // decoration: const BoxDecoration(color: Colors.blue),
+        child: Column(
+          children: [
+            TextButton(
+              onPressed: () {
+                context.go('/profile/453f112c-ef00-4a07-8522-2dbf8c94e596');
+              },
+              child: Text('View Kourosh Spams Profile'),
+            ),
+          ],
+        ),
       ),
     );
   }
