@@ -137,18 +137,23 @@ class _EventScreenState extends State<EventScreen> {
   }
 
   Widget _actionButtons() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          onPressed: () {},
-          child: const Text('Accept Invite'),
-        ),
-        TextButton(
-          onPressed: () {},
-          child: const Text('Deny Invite'),
-        ),
-      ],
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text('Accept Invite'),
+          ),
+          TextButton(
+            onPressed: () {},
+            child: const Text('Deny Invite'),
+          ),
+        ],
+      ),
     );
   }
 
@@ -170,7 +175,7 @@ class _EventScreenState extends State<EventScreen> {
             style: GoogleFonts.lato(fontSize: 20),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * .70,
+            height: MediaQuery.of(context).size.height * .335,
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).size.height * .045,
@@ -188,7 +193,8 @@ class _EventScreenState extends State<EventScreen> {
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : Column(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _header(),
@@ -196,7 +202,11 @@ class _EventScreenState extends State<EventScreen> {
                         height: MediaQuery.of(context).size.height * .05,
                       ),
                       _checkIfDescriptionNull(),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * .025),
                       _checkIfDisplayEmail(),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * .05),
                       _actionButtons(),
                     ],
                   ),
