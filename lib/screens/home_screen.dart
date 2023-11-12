@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: const StartDrawer(),
       bottomNavigationBar: const BottomNavBar(index: 0),
-      body: Container(
+      body: SizedBox(
         height: deviceHeight,
         width: deviceWidth,
         // decoration: const BoxDecoration(color: Colors.blue),
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 context.go('/profile/453f112c-ef00-4a07-8522-2dbf8c94e596');
               },
-              child: Text('View Kourosh Spams Profile'),
+              child: const Text('View Kourosh Spams Profile'),
             ),
           ],
         ),
