@@ -136,8 +136,11 @@ class _AddCalendarScreenState extends State<AddEventScreen> {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * .045),
+        margin: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * .045,
+          right: MediaQuery.of(context).size.width * .045,
+          top: MediaQuery.of(context).size.height * .125,
+        ),
         child: ListView(
           children: [
             Row(
