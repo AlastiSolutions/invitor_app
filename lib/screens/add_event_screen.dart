@@ -142,12 +142,15 @@ class _AddCalendarScreenState extends State<AddEventScreen> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: TextFormField(
                     controller: _titleController,
+                    maxLength: 25,
                     decoration: InputDecoration(
                       hintText: 'Event Title',
+                      counterText: "",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
