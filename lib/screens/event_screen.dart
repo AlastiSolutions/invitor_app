@@ -68,6 +68,27 @@ class _EventScreenState extends State<EventScreen> {
     }
   }
 
+  Widget _header() {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          _currentEvent.title,
+          style: GoogleFonts.lato(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          DateFormat('yyyy-MM-DD').format(_currentEvent.date).substring(0, 10),
+          style: GoogleFonts.lato(fontSize: 12),
+        ),
+      ],
+    );
+  }
+
   Widget _checkIfDescriptionNull() {
     Widget content = const Text('No Description for this Event.');
 
@@ -90,7 +111,7 @@ class _EventScreenState extends State<EventScreen> {
       );
     }
 
-    return Expanded(child: content);
+    return content;
   }
 
   Widget _checkIfDisplayEmail() {
@@ -112,7 +133,23 @@ class _EventScreenState extends State<EventScreen> {
       );
     }
 
-    return Expanded(child: content);
+    return content;
+  }
+
+  Widget _actionButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton(
+          onPressed: () {},
+          child: const Text('Accept Invite'),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: const Text('Deny Invite'),
+        ),
+      ],
+    );
   }
 
   @override
@@ -145,60 +182,23 @@ class _EventScreenState extends State<EventScreen> {
             ),
             decoration: BoxDecoration(
               // color: Colors.blue,
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.grey.shade500),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
-                )
-              ],
             ),
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
-                : Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              _currentEvent.title,
-                              style: GoogleFonts.lato(fontSize: 20),
-                            ),
-                            Text(
-                              DateFormat('yyyy-MM-DD')
-                                  .format(_currentEvent.date)
-                                  .substring(0, 10),
-                              style: GoogleFonts.lato(fontSize: 14),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * .05),
-                        _checkIfDescriptionNull(),
-                        _checkIfDisplayEmail(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: const Text('Accept Invite'),
-                            ),
-                            TextButton(
-                              onPressed: () {},
-                              child: const Text('Deny Invite'),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _header(),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .05,
+                      ),
+                      _checkIfDescriptionNull(),
+                      _checkIfDisplayEmail(),
+                      _actionButtons(),
+                    ],
                   ),
           ),
         ],
