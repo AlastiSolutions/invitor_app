@@ -112,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * .10),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * .55,
+                    height: MediaQuery.of(context).size.height * .525,
                     child: Column(
                       children: [
                         Row(
