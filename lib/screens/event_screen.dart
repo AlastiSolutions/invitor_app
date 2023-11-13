@@ -82,7 +82,7 @@ class _EventScreenState extends State<EventScreen> {
           ),
         ),
         Text(
-          DateFormat('yyyy-MM-DD').format(_currentEvent.date).substring(0, 10),
+          DateFormat('yMMMd').format(_currentEvent.date),
           style: GoogleFonts.lato(fontSize: 12),
         ),
       ],
