@@ -28,4 +28,5 @@ doc/api/
 .flutter-plugins
 .flutter-plugins-dependencies
 
-old/
+lib/old/
+lib/models/utils.dart
