@@ -41,6 +41,12 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: const Text('View Kourosh Spams Profile'),
             ),
+            TextButton(
+              onPressed: () {
+                context.go('/test');
+              },
+              child: const Text('View Test Table Complex'),
+            ),
           ],
         ),
       ),
