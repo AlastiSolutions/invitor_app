@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -23,10 +24,9 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
   bool _isLoading = false;
 
   late final ValueNotifier<List<Event>> _selectedEvents;
-  late PageController _pageController;
+  final RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.disabled;
 
   CalendarFormat _calendarFormat = CalendarFormat.month;
-  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.disabled;
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
 
@@ -167,10 +167,9 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                   lastDay: DateTime(2100),
                   calendarFormat: _calendarFormat,
                   selectedDayPredicate: _selectedDayPredicate,
+                  rangeSelectionMode: _rangeSelectionMode,
                   eventLoader: _eventLoader,
                   onDaySelected: _onDaySelected,
-                  onCalendarCreated: (controller) =>
-                      _pageController = controller,
                   onFormatChanged: (format) {
                     if (_calendarFormat != format) {
                       setState(() {
@@ -199,7 +198,7 @@ class _EventCalendarScreenState extends State<EventCalendarScreen> {
                             ),
                             child: ListTile(
                                 onTap: () =>
-                                    print('${value[index].toString()}'),
+                                    context.go('/events/${value[index].id}'),
                                 title: Text(value[index].title)),
                           );
                         },
