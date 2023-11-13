@@ -17,7 +17,7 @@ class BottomNavBarState extends State<BottomNavBar> {
     if (index == 0) {
       context.go('/home');
     } else if (index == 1) {
-      context.go('/calendar');
+      context.go('/calendar/${supabase.auth.currentUser!.id}');
     } else {
       context.go('/profile/${supabase.auth.currentUser!.id}');
     }
