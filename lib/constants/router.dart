@@ -8,7 +8,7 @@ import 'package:invitor_app/screens/splash_screen.dart';
 import 'package:invitor_app/screens/login_screen.dart';
 import 'package:invitor_app/screens/register_screen.dart';
 import 'package:invitor_app/screens/home_screen.dart';
-import 'package:invitor_app/screens/calendar_screen.dart';
+import 'package:invitor_app/screens/event_calendar_screen.dart';
 import 'package:invitor_app/screens/add_event_screen.dart';
 import 'package:invitor_app/screens/profile_screen.dart';
 
@@ -88,8 +88,9 @@ final router = GoRouter(
       ],
     ),
     GoRoute(
-      path: '/calendar',
-      pageBuilder: (context, state) => buildPage(const CalendarScreen()),
+      path: '/calendar/:userId',
+      pageBuilder: (context, state) => buildPage(
+          EventCalendarScreen(userId: state.pathParameters['userId']!)),
     ),
     GoRoute(
       path: '/events/:eventId',
