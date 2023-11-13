@@ -23,6 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   late UserInfo currentUserInfo;
   late List<Event> currentUserEvents = [];
+  late List<Event> sortedUserEvents = [];
 
   Future<void> getUserInfo() async {
     final userID = widget.profileId;
@@ -52,6 +53,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         currentUserEvents.add(newEvent);
       });
     }
+  }
+
+  List<Event> sortEvents(List<Event> list) {
+    sortedUserEvents = list;
+    sortedUserEvents
+        .sort((eventOne, eventTwo) => eventOne.date.compareTo(eventTwo.date));
+
+    return sortedUserEvents;
   }
 
   @override
@@ -134,10 +143,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: currentUserEvents.isEmpty
                               ? const Center(child: Text('Create a new event'))
                               : ListView.builder(
-                                  itemCount: currentUserEvents.length,
+                                  itemCount:
+                                      sortEvents(currentUserEvents).length,
                                   itemBuilder: (context, index) {
                                     return _EventTile(
-                                      event: currentUserEvents[index],
+                                      event:
+                                          sortEvents(currentUserEvents)[index],
                                     );
                                   },
                                 ),
