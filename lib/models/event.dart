@@ -31,6 +31,10 @@ class Event {
     );
   }
 
+  // String toString() {
+  //   return "$date : $title";
+  // }
+
   final String id;
   final DateTime createdAt;
   final String title;
