@@ -8,8 +8,8 @@ DateTime _parseDateTimeFromString(String date) {
 
 class UserInfo {
   final String id;
-  final String firstName;
-  final String lastName;
+  final String? firstName;
+  final String? lastName;
   final DateTime createdAt;
   final String? username;
 
