@@ -47,6 +47,8 @@ class RegisterScreenState extends State<RegisterScreen> {
           'created_at': DateTime.now().toIso8601String(),
           'username': username,
           'updated_at': DateTime.now().toIso8601String(),
+          'first_name': null,
+          'last_name': null,
         });
       }
 
