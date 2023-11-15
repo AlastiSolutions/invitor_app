@@ -112,8 +112,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Event findNextEvent() {
+  Event? findNextEvent() {
     final now = DateTime.now();
+
+    if (authUserEvents.isEmpty) return null;
 
     final events =
         authUserEvents.where((element) => element.date.isAfter(now)).toList();
@@ -122,8 +124,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return events[0];
   }
 
-  Event findLastEvent() {
+  Event? findLastEvent() {
     final now = DateTime.now();
+
+    if (authUserEvents.isEmpty) return null;
 
     final events =
         authUserEvents.where((element) => element.date.isBefore(now)).toList();
@@ -217,7 +221,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      findNextEvent().title,
+                      findNextEvent() == null
+                          ? 'Create first event'
+                          : findNextEvent()!.title,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -229,7 +235,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                             width: MediaQuery.of(context).size.width * .0125),
                         Text(
-                          DateFormat('yMMMd').format(findNextEvent().date),
+                          findLastEvent() == null
+                              ? ''
+                              : DateFormat('yMMMd')
+                                  .format(findNextEvent()!.date),
                           style: GoogleFonts.lato(fontSize: 18),
                           textAlign: TextAlign.start,
                         ),
@@ -262,7 +271,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      findLastEvent().title,
+                      findLastEvent() == null
+                          ? 'Create first event'
+                          : findLastEvent()!.title,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -274,7 +285,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                             width: MediaQuery.of(context).size.width * .0125),
                         Text(
-                          DateFormat('yMMMd').format(findLastEvent().date),
+                          findLastEvent() == null
+                              ? ''
+                              : DateFormat('yMMMd')
+                                  .format(findLastEvent()!.date),
                           style: GoogleFonts.lato(fontSize: 18),
                           textAlign: TextAlign.start,
                         ),
