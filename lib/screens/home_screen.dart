@@ -182,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * .025),
-                  _eventWidgets(),
+                  // _eventWidgets(),
                   TextButton(
                     onPressed: () {
                       context
