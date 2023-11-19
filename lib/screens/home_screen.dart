@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Event? findNextEvent() {
     final now = DateTime.now();
 
-    if (authUserEvents.isEmpty) return null;
+    if (authUserEvents.isEmpty || authUserEvents.length <= 1) return null;
 
     final events =
         authUserEvents.where((element) => element.date.isAfter(now)).toList();
@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Event? findLastEvent() {
     final now = DateTime.now();
 
-    if (authUserEvents.isEmpty) return null;
+    if (authUserEvents.isEmpty || authUserEvents.length <= 1) return null;
 
     final events =
         authUserEvents.where((element) => element.date.isBefore(now)).toList();
@@ -182,14 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * .025),
-                  // _eventWidgets(),
-                  TextButton(
-                    onPressed: () {
-                      context
-                          .go('/profile/453f112c-ef00-4a07-8522-2dbf8c94e596');
-                    },
-                    child: const Text('View Kourosh Spams Profile'),
-                  ),
+                  _eventWidgets(),
                 ],
               ),
       ),
