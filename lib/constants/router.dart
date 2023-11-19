@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:invitor_app/screens/event_screen.dart';
+import 'package:invitor_app/screens/friends_screen.dart';
 // import 'package:invitor_app/main.dart';
 import 'package:invitor_app/screens/settings_screen.dart';
 
@@ -102,6 +103,12 @@ final router = GoRouter(
       path: '/profile/:userId',
       pageBuilder: (context, state) => buildPage(
         ProfileScreen(profileId: state.pathParameters['userId']!),
+      ),
+    ),
+    GoRoute(
+      path: '/friends/:userId',
+      pageBuilder: (context, state) => buildPage(
+        FriendsScreen(profileId: state.pathParameters['userId']!),
       ),
     ),
   ],
