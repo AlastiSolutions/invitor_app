@@ -89,6 +89,19 @@ class _StartDrawerState extends State<StartDrawer> {
                 children: [
                   TextButton(
                     onPressed: () {
+                      context.go('/friends/${supabase.auth.currentUser!.id}');
+                    },
+                    child: Row(
+                      children: [
+                        const Icon(Icons.people_alt_rounded),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * .05),
+                        const Text('Friends'),
+                      ],
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
                       context.go('/home/settings');
                     },
                     child: Row(
